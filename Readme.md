@@ -10,26 +10,26 @@
 			- [1.1.1.5. Usage of Graphs](#1115-usage-of-graphs)
 			- [1.1.1.6. Real-life Application of Graphs](#1116-real-life-application-of-graphs)
 		- [1.1.2. Graph and its representations](#112-graph-and-its-representations)
-			- [Implementation of Adjacency Matrix](#implementation-of-adjacency-matrix)
-			- [Implementation of Adjacency List](#implementation-of-adjacency-list)
-		- [BFS \& DFS in Graphs](#bfs--dfs-in-graphs)
-			- [Breadth First Traversal for a Graph](#breadth-first-traversal-for-a-graph)
-			- [Depth First Traversal for a Graph](#depth-first-traversal-for-a-graph)
-	- [Day 2](#day-2)
-	- [1.2. Application](#12-application)
-	- [1.3. Library](#13-library)
-		- [1.3.1. Breadth First Traversal for a Graph](#131-breadth-first-traversal-for-a-graph)
-		- [1.3.2. Depth First Traversal for a Graph](#132-depth-first-traversal-for-a-graph)
-	- [1.4. Tutorial Representation Learning on Networks](#14-tutorial-representation-learning-on-networks)
-	- [1.5. Tutorial GNN](#15-tutorial-gnn)
-		- [1.5.1. Node embeddings](#151-node-embeddings)
-		- [1.5.2. Graph neural networks](#152-graph-neural-networks)
-	- [1.6. Graph Neural Network - A literature review and applications](#16-graph-neural-network---a-literature-review-and-applications)
-	- [1.7. Graph Neural Network and Some of GNN Applications: Everything You Need to Know](#17-graph-neural-network-and-some-of-gnn-applications-everything-you-need-to-know)
-	- [1.8. Creating Message Passing Networks](#18-creating-message-passing-networks)
-	- [1.9. Computational Graph in PyTorch](#19-computational-graph-in-pytorch)
-	- [1.10. GCN](#110-gcn)
-	- [1.11. pytorch\_geometric.nn](#111-pytorch_geometricnn)
+			- [1.1.2.1. Implementation of Adjacency Matrix](#1121-implementation-of-adjacency-matrix)
+			- [1.1.2.2. Implementation of Adjacency List](#1122-implementation-of-adjacency-list)
+		- [1.1.3. BFS \& DFS in Graphs](#113-bfs--dfs-in-graphs)
+			- [1.1.3.1. Breadth First Traversal for a Graph](#1131-breadth-first-traversal-for-a-graph)
+			- [1.1.3.2. Depth First Traversal for a Graph](#1132-depth-first-traversal-for-a-graph)
+	- [1.2. Day 2](#12-day-2)
+	- [1.3. Application](#13-application)
+	- [1.4. Library](#14-library)
+		- [1.4.1. Breadth First Traversal for a Graph](#141-breadth-first-traversal-for-a-graph)
+		- [1.4.2. Depth First Traversal for a Graph](#142-depth-first-traversal-for-a-graph)
+	- [1.5. Tutorial Representation Learning on Networks](#15-tutorial-representation-learning-on-networks)
+	- [1.6. Tutorial GNN](#16-tutorial-gnn)
+		- [1.6.1. Node embeddings](#161-node-embeddings)
+		- [1.6.2. Graph neural networks](#162-graph-neural-networks)
+	- [1.7. Graph Neural Network - A literature review and applications](#17-graph-neural-network---a-literature-review-and-applications)
+	- [1.8. Graph Neural Network and Some of GNN Applications: Everything You Need to Know](#18-graph-neural-network-and-some-of-gnn-applications-everything-you-need-to-know)
+	- [1.9. Creating Message Passing Networks](#19-creating-message-passing-networks)
+	- [1.10. Computational Graph in PyTorch](#110-computational-graph-in-pytorch)
+	- [1.11. GCN](#111-gcn)
+	- [1.12. pytorch\_geometric.nn](#112-pytorch_geometricnn)
 
 
 ## 1.1. Day 1
@@ -88,7 +88,7 @@
 - https://www.geeksforgeeks.org/graph-and-its-representations/
 
 
-#### Implementation of Adjacency Matrix
+#### 1.1.2.1. Implementation of Adjacency Matrix
 
 ```python
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
         # adjMat[u][v] as 1
 ```
 
-#### Implementation of Adjacency List
+#### 1.1.2.2. Implementation of Adjacency List
 ```python
 """
 A Python program to demonstrate the adjacency
@@ -172,10 +172,10 @@ if __name__ == "__main__":
 # This code is contributed by Kanav Malhotra
 
 ```
-### BFS & DFS in Graphs
+### 1.1.3. BFS & DFS in Graphs
 - https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
 - https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
-#### Breadth First Traversal for a Graph
+#### 1.1.3.1. Breadth First Traversal for a Graph
 - Algorithm of Breadth-First Search
   - Step 1: Consider the graph you want to navigate.
   - Step 2: Select any vertex in your graph (say v1), from which you want to traverse the graph.
@@ -261,7 +261,7 @@ if __name__ == '__main__':
 
 ```
 
-#### Depth First Traversal for a Graph
+#### 1.1.3.2. Depth First Traversal for a Graph
 - Implement DFS
 
 ```python
@@ -321,10 +321,10 @@ if __name__ == "__main__":
 # This code is contributed by Priyank Namdeo
 
 ```
-## Day 2
+## 1.2. Day 2
 
-## 1.2. Application
-## 1.3. Library 
+## 1.3. Application
+## 1.4. Library 
 
 - Pytorch geometric
 - DGL
@@ -334,40 +334,40 @@ if __name__ == "__main__":
 
 
 
-### 1.3.1. Breadth First Traversal for a Graph
+### 1.4.1. Breadth First Traversal for a Graph
 
-### 1.3.2. Depth First Traversal for a Graph
+### 1.4.2. Depth First Traversal for a Graph
 
-## 1.4. Tutorial Representation Learning on Networks
+## 1.5. Tutorial Representation Learning on Networks
 - http://snap.stanford.edu/proj/embeddings-www/
 - Node embeddings -> Map nodes to low-dimensional embeddings 
   - DeepWalk
   - Node2vec
 - Graph neural networks -> Deep Learning architectures for graph-structured data
 
-## 1.5. Tutorial GNN
+## 1.6. Tutorial GNN
 
 - https://drive.google.com/file/d/1rvm6Yq6-Ss4UmxLDIPTReJJkAdcXdhFb/view
 
 
-### 1.5.1. Node embeddings
+### 1.6.1. Node embeddings
 
 ![Node embeddings](Asset/20230606104241.png)
 
 - Random Walk Approaches 
 - node2vec: Biased Walks 
-### 1.5.2. Graph neural networks
+### 1.6.2. Graph neural networks
 - The basics 
 - Graph convolutional networks 
 - GraphSAGE
 - Gated Graph Neural Networks 
 - Subgraph Embeddings 
 
-## 1.6. Graph Neural Network - A literature review and applications
+## 1.7. Graph Neural Network - A literature review and applications
 - https://viblo.asia/p/deep-learning-graph-neural-network-a-literature-review-and-applications-6J3ZgP0qlmB#_node-embedding-6
 
 
-## 1.7. Graph Neural Network and Some of GNN Applications: Everything You Need to Know
+## 1.8. Graph Neural Network and Some of GNN Applications: Everything You Need to Know
 
 - https://neptune.ai/blog/graph-neural-network-and-some-of-gnn-applications
 
@@ -375,20 +375,20 @@ if __name__ == "__main__":
 
 
 
-## 1.8. Creating Message Passing Networks
+## 1.9. Creating Message Passing Networks
 
-## 1.9. Computational Graph in PyTorch
+## 1.10. Computational Graph in PyTorch
 
 - https://www.geeksforgeeks.org/computational-graph-in-pytorch/
 
-## 1.10. GCN 
+## 1.11. GCN 
 
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-1-6J3Zga8A5mB
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-2-gAm5y7NqZdb
 
 
 
-## 1.11. pytorch_geometric.nn
+## 1.12. pytorch_geometric.nn
 
 - Convolutional Layers 
 - Aggregation Operators 
