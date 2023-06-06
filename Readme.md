@@ -21,18 +21,16 @@
 		- [1.2.3. Data Flow Graph - Solidity](#123-data-flow-graph---solidity)
 		- [1.2.4. Inheritance Graph](#124-inheritance-graph)
 	- [1.3. Day 3 - Slither Tool](#13-day-3---slither-tool)
-	- [1.4. Application](#14-application)
-	- [1.5. Library](#15-library)
-	- [1.6. Tutorial Representation Learning on Networks](#16-tutorial-representation-learning-on-networks)
-	- [1.7. Tutorial GNN](#17-tutorial-gnn)
-		- [1.7.1. Node embeddings](#171-node-embeddings)
-		- [1.7.2. Graph neural networks](#172-graph-neural-networks)
-	- [1.8. Graph Neural Network - A literature review and applications](#18-graph-neural-network---a-literature-review-and-applications)
-	- [1.9. Graph Neural Network and Some of GNN Applications: Everything You Need to Know](#19-graph-neural-network-and-some-of-gnn-applications-everything-you-need-to-know)
-	- [1.10. Creating Message Passing Networks](#110-creating-message-passing-networks)
-	- [1.11. Computational Graph in PyTorch](#111-computational-graph-in-pytorch)
-	- [1.12. GCN](#112-gcn)
-	- [1.13. pytorch\_geometric.nn](#113-pytorch_geometricnn)
+	- [1.4. Day 4 - A Gentle Introduction to Graph Neural Networks](#14-day-4---a-gentle-introduction-to-graph-neural-networks)
+	- [1.5. Tutorial Representation Learning on Networks](#15-tutorial-representation-learning-on-networks)
+		- [1.5.1. Node embeddings](#151-node-embeddings)
+		- [1.5.2. Graph neural networks](#152-graph-neural-networks)
+	- [1.6. Creating Message Passing Networks](#16-creating-message-passing-networks)
+	- [1.7. Computational Graph in PyTorch](#17-computational-graph-in-pytorch)
+	- [1.8. GCN](#18-gcn)
+	- [1.9. Application](#19-application)
+	- [1.10. Library](#110-library)
+		- [1.10.1. pytorch\_geometric.nn](#1101-pytorch_geometricnn)
 
 
 ## 1.1. Day 1
@@ -633,66 +631,69 @@ Function getBalance()
 - Script use Slither API in Python
 
 
-## 1.4. Application
-## 1.5. Library 
+..updating...
 
-- Pytorch geometric
-- DGL
-- Networkx
+## 1.4. Day 4 - A Gentle Introduction to Graph Neural Networks
+
+- https://distill.pub/2021/gnn-intro/
+- https://drive.google.com/file/d/1rvm6Yq6-Ss4UmxLDIPTReJJkAdcXdhFb/view
+- https://viblo.asia/p/deep-learning-graph-neural-network-a-literature-review-and-applications-6J3ZgP0qlmB#_node-embedding-6
+- https://neptune.ai/blog/graph-neural-network-and-some-of-gnn-applications
 
 
 
-## 1.6. Tutorial Representation Learning on Networks
+## 1.5. Tutorial Representation Learning on Networks
 - http://snap.stanford.edu/proj/embeddings-www/
 - Node embeddings -> Map nodes to low-dimensional embeddings 
   - DeepWalk
   - Node2vec
 - Graph neural networks -> Deep Learning architectures for graph-structured data
 
-## 1.7. Tutorial GNN
 
-- https://drive.google.com/file/d/1rvm6Yq6-Ss4UmxLDIPTReJJkAdcXdhFb/view
-
-
-### 1.7.1. Node embeddings
+### 1.5.1. Node embeddings
 
 ![Node embeddings](Asset/20230606104241.png)
 
 - Random Walk Approaches 
 - node2vec: Biased Walks 
-### 1.7.2. Graph neural networks
+### 1.5.2. Graph neural networks
 - The basics 
 - Graph convolutional networks 
 - GraphSAGE
 - Gated Graph Neural Networks 
 - Subgraph Embeddings 
 
-## 1.8. Graph Neural Network - A literature review and applications
-- https://viblo.asia/p/deep-learning-graph-neural-network-a-literature-review-and-applications-6J3ZgP0qlmB#_node-embedding-6
-
-
-## 1.9. Graph Neural Network and Some of GNN Applications: Everything You Need to Know
-
-- https://neptune.ai/blog/graph-neural-network-and-some-of-gnn-applications
 
 
 
 
+## 1.6. Creating Message Passing Networks
 
-## 1.10. Creating Message Passing Networks
-
-## 1.11. Computational Graph in PyTorch
+## 1.7. Computational Graph in PyTorch
 
 - https://www.geeksforgeeks.org/computational-graph-in-pytorch/
 
-## 1.12. GCN 
+## 1.8. GCN 
 
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-1-6J3Zga8A5mB
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-2-gAm5y7NqZdb
 
 
 
-## 1.13. pytorch_geometric.nn
+## 1.9. Application
+
+- Mandoguru
+- Vulnerability detection
+- Recommend System
+
+## 1.10. Library 
+
+- Pytorch geometric
+- DGL
+- Networkx
+
+
+### 1.10.1. pytorch_geometric.nn
 
 - Convolutional Layers 
 - Aggregation Operators 
@@ -709,3 +710,5 @@ Function getBalance()
 - DataParallel Layers
 - Model Hub
 - Model Summary
+
+
