@@ -22,15 +22,32 @@
 		- [1.2.4. Inheritance Graph](#124-inheritance-graph)
 	- [1.3. Day 3 - Slither Tool](#13-day-3---slither-tool)
 	- [1.4. Day 4 - A Gentle Introduction to Graph Neural Networks](#14-day-4---a-gentle-introduction-to-graph-neural-networks)
-	- [1.5. Tutorial Representation Learning on Networks](#15-tutorial-representation-learning-on-networks)
+	- [1.5. Day 5 - Tutorial Representation Learning on Networks](#15-day-5---tutorial-representation-learning-on-networks)
 		- [1.5.1. Node embeddings](#151-node-embeddings)
 		- [1.5.2. Graph neural networks](#152-graph-neural-networks)
-	- [1.6. Creating Message Passing Networks](#16-creating-message-passing-networks)
-	- [1.7. Computational Graph in PyTorch](#17-computational-graph-in-pytorch)
-	- [1.8. GCN](#18-gcn)
-	- [1.9. Application](#19-application)
-	- [1.10. Library](#110-library)
-		- [1.10.1. pytorch\_geometric.nn](#1101-pytorch_geometricnn)
+	- [1.6. Day 6 - Graph neural networks: A review of methods and applications](#16-day-6---graph-neural-networks-a-review-of-methods-and-applications)
+		- [1.6.1. General design pipeline of GNNs](#161-general-design-pipeline-of-gnns)
+			- [1.6.1.1. Find graph structure](#1611-find-graph-structure)
+			- [1.6.1.2. Specify graph type and scale](#1612-specify-graph-type-and-scale)
+			- [1.6.1.3. Design loss function](#1613-design-loss-function)
+			- [1.6.1.4. Build model using computational modules](#1614-build-model-using-computational-modules)
+		- [1.6.2. Variants considering graph type and scale](#162-variants-considering-graph-type-and-scale)
+		- [1.6.3. Variants for different training settings](#163-variants-for-different-training-settings)
+		- [1.6.4. A design example of GNN](#164-a-design-example-of-gnn)
+			- [1.6.4.1. GPT-GNN: Generative Pre-Training of Graph Neural Networks](#1641-gpt-gnn-generative-pre-training-of-graph-neural-networks)
+		- [1.6.5. Analyses of GNN](#165-analyses-of-gnn)
+	- [1.7. Introduction by Example - Pytorch Geometric](#17-introduction-by-example---pytorch-geometric)
+	- [1.8. Creating Message Passing Networks](#18-creating-message-passing-networks)
+	- [1.9. Creating Your Own Datasets](#19-creating-your-own-datasets)
+	- [1.10. Heterogeneous Graph Learning](#110-heterogeneous-graph-learning)
+	- [1.11. Loading Graphs from CSV](#111-loading-graphs-from-csv)
+	- [1.12. GNN Explainability](#112-gnn-explainability)
+	- [1.13. Compiled Graph Neural Networks](#113-compiled-graph-neural-networks)
+	- [1.14. Computational Graph in PyTorch](#114-computational-graph-in-pytorch)
+	- [1.15. GCN](#115-gcn)
+	- [1.16. Application](#116-application)
+	- [1.17. Library](#117-library)
+		- [1.17.1. pytorch\_geometric.nn](#1171-pytorch_geometricnn)
 
 
 ## 1.1. Day 1
@@ -628,7 +645,9 @@ Function getBalance()
 ## 1.3. Day 3 - Slither Tool
 
 - Reference: [Slither documents](https://github.com/crytic/slither/wiki)
+- Install: `pip3 install slither-analyzer`
 - Script use Slither API in Python
+- CLI
 
 
 ..updating...
@@ -640,9 +659,10 @@ Function getBalance()
 - https://viblo.asia/p/deep-learning-graph-neural-network-a-literature-review-and-applications-6J3ZgP0qlmB#_node-embedding-6
 - https://neptune.ai/blog/graph-neural-network-and-some-of-gnn-applications
 
+...updating...
 
 
-## 1.5. Tutorial Representation Learning on Networks
+## 1.5. Day 5 - Tutorial Representation Learning on Networks
 - http://snap.stanford.edu/proj/embeddings-www/
 - Node embeddings -> Map nodes to low-dimensional embeddings 
   - DeepWalk
@@ -663,37 +683,155 @@ Function getBalance()
 - Gated Graph Neural Networks 
 - Subgraph Embeddings 
 
+...updating...
+
+## 1.6. Day 6 - Graph neural networks: A review of methods and applications
+
+![The general design pipeline for a GNN model](Asset/20230604205956.png)
+
+### 1.6.1. General design pipeline of GNNs
+
+- Find graph structure
+- Specify graph type and scale
+- Design loss function
+- Build model using computational modules
+  - Propagation modules - convolution operator
+    - Spectral approaches
+    - Basic spatial approaches
+    - Attention-based spatial approaches
+    - General frameworks for spatial approaches
+  - Propagation modules - recurrent operator
+    - Convergence-based methods
+    - Gate-based methods
+  - Propagation modules - skip connection
+  - Sampling modules
+    - Node sampling
+    - Layer sampling
+    - Subgraph sampling
+  - Pooling modules
+    - Direct pooling modules
+    - Hierarchical pooling modules
+
+#### 1.6.1.1. Find graph structure
+
+- [x] structure scenarios  
+- non-structural scenarios 
+  - example: building a fully-connected “word” graph for text or building a scene graph for an image
+
+==> Get the graph
+
+#### 1.6.1.2. Specify graph type and scale 
+- Directed/Undirected Graphs
+  - [ ] Directed graphs
+  - [x] Undirected graphs 
+- Homogeneous/Heterogeneous Graphs
+  - [ ] Homo
+  - [x] Hetero 
+- Static/Dynamic Graphs
+  - [x] Static
+  - [ ] Dynamic 
+
+#### 1.6.1.3. Design loss function 
+
+- Node-level: tasks focus on nodes, which include node classification,
+node regression, node clustering, etc. Node classification tries to
+categorize nodes into several classes, and node regression predicts a
+continuous value for each node. Node clustering aims to partition the
+nodes into several disjoint groups, where similar nodes should be in
+the same group.
+
+- Edge-level: tasks are edge classification and link prediction, which
+require the model to classify edge types or predict whether there is an
+edge existing between two given nodes.
 
 
+- [x] Graph-level: tasks include graph classification, graph regression, and
+graph matching, all of which need the model to learn graph
+representations.
+
+==> categorize graph learning tasks into three different training
+
+- Supervised setting
+- Semi-supervised setting
+- Unsupervised setting
+
+:pushpin: Example 
+
+- With the task type and the training setting, we can design a specific
+loss function for the task. For example, for a node-level semi-supervised
+classification task, the cross-entropy loss can be used for the labeled
+nodes in the training set.
+
+#### 1.6.1.4. Build model using computational modules
+
+![Propagation modules](Asset/20230604212400.png)
+
+![Sampling modules](Asset/20230604212433.png)
+
+![Pooling Modules](Asset/20230604212924.png)
+### 1.6.2. Variants considering graph type and scale
+
+- Directed graphs 
+- hHeterogeneous graphs 
+- Dynamic graphs 
+- Other graph types 
+- Large graphs 
+
+![An overview of variants considering graph type and scale](Asset/20230604213000.png)
+### 1.6.3. Variants for different training settings 
+
+- Graph auto-encoders 
+- Contrastive learning
+
+### 1.6.4. A design example of GNN
+
+#### 1.6.4.1. GPT-GNN: Generative Pre-Training of Graph Neural Networks
 
 
-## 1.6. Creating Message Passing Networks
+### 1.6.5. Analyses of GNN
 
-## 1.7. Computational Graph in PyTorch
+...updating...
+
+## 1.7. Introduction by Example - Pytorch Geometric
+
+## 1.8. Creating Message Passing Networks
+
+## 1.9. Creating Your Own Datasets
+
+## 1.10. Heterogeneous Graph Learning
+
+## 1.11. Loading Graphs from CSV
+
+## 1.12. GNN Explainability
+
+## 1.13. Compiled Graph Neural Networks
+
+
+## 1.14. Computational Graph in PyTorch
 
 - https://www.geeksforgeeks.org/computational-graph-in-pytorch/
 
-## 1.8. GCN 
+## 1.15. GCN 
 
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-1-6J3Zga8A5mB
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-2-gAm5y7NqZdb
 
 
 
-## 1.9. Application
+## 1.16. Application
 
 - Mandoguru
 - Vulnerability detection
 - Recommend System
 
-## 1.10. Library 
+## 1.17. Library 
 
 - Pytorch geometric
 - DGL
 - Networkx
 
 
-### 1.10.1. pytorch_geometric.nn
+### 1.17.1. pytorch_geometric.nn
 
 - Convolutional Layers 
 - Aggregation Operators 
