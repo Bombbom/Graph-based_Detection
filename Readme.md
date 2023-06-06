@@ -36,7 +36,7 @@
 		- [1.6.4. A design example of GNN](#164-a-design-example-of-gnn)
 			- [1.6.4.1. GPT-GNN: Generative Pre-Training of Graph Neural Networks](#1641-gpt-gnn-generative-pre-training-of-graph-neural-networks)
 		- [1.6.5. Analyses of GNN](#165-analyses-of-gnn)
-	- [1.7. Introduction by Example - Pytorch Geometric](#17-introduction-by-example---pytorch-geometric)
+	- [1.7. Day 7 - Introduction by Example - Pytorch Geometric](#17-day-7---introduction-by-example---pytorch-geometric)
 	- [1.8. Creating Message Passing Networks](#18-creating-message-passing-networks)
 	- [1.9. Creating Your Own Datasets](#19-creating-your-own-datasets)
 	- [1.10. Heterogeneous Graph Learning](#110-heterogeneous-graph-learning)
@@ -45,9 +45,28 @@
 	- [1.13. Compiled Graph Neural Networks](#113-compiled-graph-neural-networks)
 	- [1.14. Computational Graph in PyTorch](#114-computational-graph-in-pytorch)
 	- [1.15. GCN](#115-gcn)
-	- [1.16. Application](#116-application)
-	- [1.17. Library](#117-library)
-		- [1.17.1. pytorch\_geometric.nn](#1171-pytorch_geometricnn)
+	- [1.16. Introduction: Hands-on Graph Neural Networks](#116-introduction-hands-on-graph-neural-networks)
+	- [1.17. Node Classification with Graph Neural Networks](#117-node-classification-with-graph-neural-networks)
+	- [1.18. Graph Classification with Graph Neural Networks](#118-graph-classification-with-graph-neural-networks)
+	- [1.19. Scaling Graph Neural Networks](#119-scaling-graph-neural-networks)
+	- [1.20. Point Cloud Classification with Graph Neural Networks](#120-point-cloud-classification-with-graph-neural-networks)
+	- [1.21. Explaining GNN Model Predictions using  Captum](#121-explaining-gnn-model-predictions-using--captum)
+	- [1.22. Customizing Aggregations within Message Passing](#122-customizing-aggregations-within-message-passing)
+	- [1.23. Node Classification Instrumented with  Weights\&Biases](#123-node-classification-instrumented-with--weightsbiases)
+	- [1.24. Graph Classification Instrumented with  Weights\&Biases](#124-graph-classification-instrumented-with--weightsbiases)
+	- [1.25. Link Prediction on MovieLens](#125-link-prediction-on-movielens)
+	- [1.26. Link Regression on MovieLens](#126-link-regression-on-movielens)
+	- [1.27. Graph Attention Networks (GATs)](#127-graph-attention-networks-gats)
+	- [1.28. Spectral Graph Convolutional Layers](#128-spectral-graph-convolutional-layers)
+	- [1.29. Aggregation Functions in GNNs](#129-aggregation-functions-in-gnns)
+	- [1.30. Recurrent Graph Neural Networks](#130-recurrent-graph-neural-networks)
+	- [1.31. DeepWalk and Node2Vec](#131-deepwalk-and-node2vec)
+	- [1.32. Data handling in PyG](#132-data-handling-in-pyg)
+	- [1.33. MetaPath2vec](#133-metapath2vec)
+	- [1.34. Graph pooling (DiffPool)](#134-graph-pooling-diffpool)
+	- [1.35. Application](#135-application)
+	- [1.36. Library](#136-library)
+		- [1.36.1. pytorch\_geometric.nn](#1361-pytorch_geometricnn)
 
 
 ## 1.1. Day 1
@@ -792,7 +811,21 @@ nodes in the training set.
 
 ...updating...
 
-## 1.7. Introduction by Example - Pytorch Geometric
+## 1.7. Day 7 - Introduction by Example - Pytorch Geometric
+
+:pushpin: [detail](day_7/Introduction_by_Example.ipynb)
+
+- Data Handling of Graphs
+
+- Common Benchmark Datasets
+
+- Mini-batches
+
+- Data Transforms
+
+- Learning Methods on Graphs
+
+- Exercises
 
 ## 1.8. Creating Message Passing Networks
 
@@ -816,22 +849,60 @@ nodes in the training set.
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-1-6J3Zga8A5mB
 - https://viblo.asia/p/tan-man-ve-graph-convolution-networks-phan-2-gAm5y7NqZdb
 
+## 1.16. Introduction: Hands-on Graph Neural Networks
+
+## 1.17. Node Classification with Graph Neural Networks
+
+## 1.18. Graph Classification with Graph Neural Networks
+
+## 1.19. Scaling Graph Neural Networks
+
+## 1.20. Point Cloud Classification with Graph Neural Networks
+
+## 1.21. Explaining GNN Model Predictions using  Captum
+
+## 1.22. Customizing Aggregations within Message Passing
+
+## 1.23. Node Classification Instrumented with  Weights&Biases
+## 1.24. Graph Classification Instrumented with  Weights&Biases
 
 
-## 1.16. Application
+## 1.25. Link Prediction on MovieLens
+
+## 1.26. Link Regression on MovieLens
+
+
+## 1.27. Graph Attention Networks (GATs) 
+
+## 1.28. Spectral Graph Convolutional Layers 
+
+## 1.29. Aggregation Functions in GNNs 
+
+## 1.30. Recurrent Graph Neural Networks
+
+## 1.31. DeepWalk and Node2Vec 
+
+## 1.32. Data handling in PyG
+
+## 1.33. MetaPath2vec
+
+## 1.34. Graph pooling (DiffPool) 
+
+
+## 1.35. Application
 
 - Mandoguru
 - Vulnerability detection
 - Recommend System
 
-## 1.17. Library 
+## 1.36. Library 
 
 - Pytorch geometric
 - DGL
 - Networkx
 
 
-### 1.17.1. pytorch_geometric.nn
+### 1.36.1. pytorch_geometric.nn
 
 - Convolutional Layers 
 - Aggregation Operators 
