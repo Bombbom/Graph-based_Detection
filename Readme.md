@@ -44,8 +44,9 @@
 	- [1.12. GNN Explainability](#112-gnn-explainability)
 	- [1.13. Compiled Graph Neural Networks](#113-compiled-graph-neural-networks)
 	- [1.14. Build Hetero Graph with Call-Graph and CFG from Solidity Source Code](#114-build-hetero-graph-with-call-graph-and-cfg-from-solidity-source-code)
-		- [Hetero Call Graph](#hetero-call-graph)
-		- [Hetero CFG](#hetero-cfg)
+		- [1.14.1. Hetero Call Graph](#1141-hetero-call-graph)
+		- [1.14.2. Hetero CFG](#1142-hetero-cfg)
+		- [1.14.3. Heterogeneous Contract Graphs: Fusion of Heterogeneous Call Graphs and Heterogeneous Control-Flow Graphs](#1143-heterogeneous-contract-graphs-fusion-of-heterogeneous-call-graphs-and-heterogeneous-control-flow-graphs)
 	- [1.15. Computational Graph in PyTorch](#115-computational-graph-in-pytorch)
 	- [1.16. GCN](#116-gcn)
 	- [1.17. Introduction: Hands-on Graph Neural Networks](#117-introduction-hands-on-graph-neural-networks)
@@ -832,10 +833,27 @@ nodes in the training set.
 
 ## 1.8. Creating Message Passing Networks
 
+- The “MessagePassing” Base Class
+
+- Implementing the GCN Layer
+
+- Implementing the Edge Convolution
+
 ## 1.9. Creating Your Own Datasets
+
+- Creating "In Memory Datasets"
+- Creating"Larger" Datasets
 
 ## 1.10. Heterogeneous Graph Learning
 
+
+- Example Graph
+- Creating Hetero Graphs
+- Hetero Graph Transformations 
+- Creating Hetero GNNs
+- Hetero Graph Samplers
+
+![Homo - Hetero Models](Asset/20230607103335.png)
 ## 1.11. Loading Graphs from CSV
 
 ## 1.12. GNN Explainability
@@ -845,7 +863,7 @@ nodes in the training set.
 
 ## 1.14. Build Hetero Graph with Call-Graph and CFG from Solidity Source Code
 
-### Hetero Call Graph
+### 1.14.1. Hetero Call Graph
 
 :pushpin: Edge Types
 
@@ -861,7 +879,7 @@ nodes in the training set.
 
 $$ G_{C} = {v_{C}, E_{C}, \phi_{C}, \psi_{C}}$$
 
-### Hetero CFG
+### 1.14.2. Hetero CFG
 
 :pushpin: Edge types
 
@@ -885,6 +903,10 @@ $$ G_{C} = {v_{C}, E_{C}, \phi_{C}, \psi_{C}}$$
 ==> Create HCFGs:
 
 $$ G_{CF} = {V_{CF}, E_{CF},\phi_{CF},\psi_{CF}}$$
+
+### 1.14.3. Heterogeneous Contract Graphs: Fusion of Heterogeneous Call Graphs and Heterogeneous Control-Flow Graphs
+
+$$ G_{Fusion} = {V_{F}, E_{F}, \phi_{F}, \psi_{F}}$$
 
 ## 1.15. Computational Graph in PyTorch
 
