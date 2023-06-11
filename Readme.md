@@ -47,6 +47,7 @@
 		- [1.14.1. Hetero Call Graph](#1141-hetero-call-graph)
 		- [1.14.2. Hetero CFG](#1142-hetero-cfg)
 		- [1.14.3. Heterogeneous Contract Graphs: Fusion of Heterogeneous Call Graphs and Heterogeneous Control-Flow Graphs](#1143-heterogeneous-contract-graphs-fusion-of-heterogeneous-call-graphs-and-heterogeneous-control-flow-graphs)
+		- [1.14.4. Datasets for Create Hetero Graph](#1144-datasets-for-create-hetero-graph)
 	- [1.15. Computational Graph in PyTorch](#115-computational-graph-in-pytorch)
 	- [1.16. GCN](#116-gcn)
 	- [1.17. Introduction: Hands-on Graph Neural Networks](#117-introduction-hands-on-graph-neural-networks)
@@ -907,6 +908,14 @@ $$ G_{CF} = {V_{CF}, E_{CF},\phi_{CF},\psi_{CF}}$$
 ### 1.14.3. Heterogeneous Contract Graphs: Fusion of Heterogeneous Call Graphs and Heterogeneous Control-Flow Graphs
 
 $$ G_{Fusion} = {V_{F}, E_{F}, \phi_{F}, \psi_{F}}$$
+
+
+### 1.14.4. Datasets for Create Hetero Graph
+
+- smartbugs will dataset
+  - nb_lines: show number lines in contract after remove comments
+  - contracts/ : contains *.sol file collects from etherscan.io
+
 
 ## 1.15. Computational Graph in PyTorch
 
